@@ -87,7 +87,7 @@ class AuxiliaryRelayService(object):
         self.target_port = connection_info.endpoints[0].port
 
         self.console_connection = ConsoleConnection(self.target_ip, self.target_port, self.crypto)
-        self.server = StreamServer(('127.0.0.1', listen_port), self._handle_client)
+        self.server = StreamServer(('0.0.0.0', listen_port), self._handle_client)
         self.client_socket = None
 
     def run(self):
