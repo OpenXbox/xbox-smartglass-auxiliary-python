@@ -53,11 +53,10 @@ class ConsoleConnection(object):
             if header.magic != AUX_PACKET_MAGIC:
                 raise Exception('Invalid packet magic received from console')
 
-            payload = b''
             payload_sz = header.payload_size + PKCS7Padding.size(header.payload_size, 16)
             remaining_payload_bytes = payload_sz
 
-            while len(payload) < payload_sz:
+            while remaining_payload_bytes > 0:
                 gevent.socket.wait_read(self._socket.fileno())
                 tmp = self._socket.recv(remaining_payload_bytes)
                 remaining_payload_bytes -= len(tmp)
