@@ -111,11 +111,9 @@ class AuxiliaryRelayService(object):
 
     def _handle_console_data(self, data):
         # Data from console gets decrypted and forwarded to aux client
-        log.debug('Console data: %s (%s)' % (data, binascii.hexlify(data)))
         if self.client_socket:
             self.client_socket.send(data)
 
     def _handle_client_data(self, data):
         # Data from aux client gets encrypted and sent to console
-        log.debug('Client data: %s (%s)' % (data, binascii.hexlify(data)))
         self.console_connection.send(data)
