@@ -53,7 +53,7 @@ class TitleManager(Manager):
                 self.connection_info = payload.connection_info
 
         elif msg_type == MessageType.ActiveSurfaceChange:
-            self._active_surface = payload
+            self.active_surface = payload
 
         else:
             raise TitleManagerError('Unhandled Msg: {}, Payload: {}'.format(msg_type, payload))
