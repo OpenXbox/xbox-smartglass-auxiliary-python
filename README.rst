@@ -49,6 +49,11 @@ Now you can use the relay script (Fallout 4 PipBoy)
     xbox-fo4-relay
 
 
+Credits
+-------
+Kudos to joelday_ for figuring out the AuxiliaryStream / TitleChannel communication first!
+You can find the original implementation here: DarkId.SmartGlass_.
+
 Known issues
 ------------
 * Find, report and/or fix them ;)
@@ -64,3 +69,5 @@ This package uses parts of Cookiecutter_ and the `audreyr/cookiecutter-pypackage
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _joelday: https://github.com/joelday
+.. _DarkId.SmartGlass: https://github.com/joelday/DarkId.SmartGlass
