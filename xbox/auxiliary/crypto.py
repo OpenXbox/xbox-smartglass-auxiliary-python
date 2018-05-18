@@ -20,6 +20,24 @@ class AuxiliaryStreamCrypto(object):
         self._server_iv = server_iv
         self._client_iv = client_iv
 
+        self._server_cipher = Cipher(
+            algorithms.AES(self._encrypt_key),
+            modes.CBC(self._server_iv),
+            backend=AuxiliaryStreamCrypto._backend
+        )
+
+        self._server_encryptor = self._server_cipher.encryptor()
+        self._server_decryptor = self._server_cipher.decryptor()
+
+        self._client_cipher = Cipher(
+            algorithms.AES(self._encrypt_key),
+            modes.CBC(self._client_iv),
+            backend=AuxiliaryStreamCrypto._backend
+        )
+
+        self._client_encryptor = self._client_cipher.encryptor()
+        self._client_decryptor = self._client_cipher.decryptor()
+
     @classmethod
     def from_connection_info(cls, connection_info):
         """
@@ -46,10 +64,10 @@ class AuxiliaryStreamCrypto(object):
         Returns:
             bytes: Encrypted Data
         """
-        return AuxiliaryStreamCrypto._encrypt(self._encrypt_key, self._client_iv, plaintext)
+        return AuxiliaryStreamCrypto._crypt(self._client_encryptor, plaintext)
 
     def encrypt_server(self, plaintext):
-        return AuxiliaryStreamCrypto._encrypt(self._encrypt_key, self._server_iv, plaintext)
+        return AuxiliaryStreamCrypto._crypt(self._server_encryptor, plaintext)
 
     def decrypt(self, ciphertext):
         """
@@ -63,10 +81,10 @@ class AuxiliaryStreamCrypto(object):
         Returns:
             bytes: Decrypted data
         """
-        return AuxiliaryStreamCrypto._decrypt(self._encrypt_key, self._server_iv, ciphertext)
+        return AuxiliaryStreamCrypto._crypt(self._server_decryptor, ciphertext)
 
     def decrypt_client(self, ciphertext):
-        return AuxiliaryStreamCrypto._decrypt(self._encrypt_key, self._client_iv, ciphertext)
+        return AuxiliaryStreamCrypto._crypt(self._client_decryptor, ciphertext)
 
     def hash(self, data):
         """
@@ -98,21 +116,5 @@ class AuxiliaryStreamCrypto(object):
         return hmac.new(key, data, hashlib.sha256).digest()
 
     @staticmethod
-    def _encrypt(key, iv, data):
-        return AuxiliaryStreamCrypto._crypt(key=key, iv=iv, encrypt=True, data=data)
-
-    @staticmethod
-    def _decrypt(key, iv, data):
-        return AuxiliaryStreamCrypto._crypt(key=key, iv=iv, encrypt=False, data=data)
-
-    @staticmethod
-    def _crypt(key, iv, encrypt, data):
-        cipher = Cipher(
-            algorithms.AES(key), modes.CBC(iv), backend=AuxiliaryStreamCrypto._backend
-        )
-        if encrypt:
-            cryptor = cipher.encryptor()
-        else:
-            cryptor = cipher.decryptor()
-
-        return cryptor.update(data) + cryptor.finalize()
+    def _crypt(cryptor, data):
+        return cryptor.update(data)

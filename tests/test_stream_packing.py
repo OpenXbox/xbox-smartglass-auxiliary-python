@@ -25,10 +25,20 @@ def _read_aux_packets(data):
 def test_client_unpack(aux_streams, aux_crypto):
     data = aux_streams['fo4_client_to_console']
     for msg in _read_aux_packets(data):
-        unpacked = packer.unpack(msg, aux_crypto, client_data=True)
+        packer.unpack(msg, aux_crypto, client_data=True)
 
 
 def test_server_unpack(aux_streams, aux_crypto):
     data = aux_streams['fo4_console_to_client']
     for msg in _read_aux_packets(data):
-        unpacked = packer.unpack(msg, aux_crypto)
+        packer.unpack(msg, aux_crypto)
+
+
+def test_decryption(aux_streams, aux_crypto):
+    data = aux_streams['fo4_console_to_client']
+    messages = list(_read_aux_packets(data))
+    # Need to unpack messages in order, starting with the first one
+    # -> Gets IV from previous decryption
+    packer.unpack(messages[0], aux_crypto)
+    json_msg = packer.unpack(messages[1], aux_crypto)
+    assert json_msg == b'{"lang":"de","version":"1.10.52.0"}\n'
