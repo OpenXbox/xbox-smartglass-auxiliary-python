@@ -6,13 +6,14 @@ class AuxiliaryPackerException(Exception):
     pass
 
 
-def pack(data, crypto):
+def pack(data, crypto, server_data=False):
     """
     Encrypt auxiliary data blob
 
     Args:
         data (bytes): Data
         crypto (:class:`AuxiliaryStreamCrypto`): Crypto context
+        server_data (bool): Whether to encrypt with `server IV`
 
     Returns:
         bytes: Encrypted message
@@ -22,7 +23,11 @@ def pack(data, crypto):
 
     # Pad data
     padded = PKCS7Padding.pad(data, 16)
-    ciphertext = crypto.encrypt(padded)
+
+    if not server_data:
+        ciphertext = crypto.encrypt(padded)
+    else:
+        ciphertext = crypto.encrypt_server(padded)
 
     header = aux_header_struct.build(dict(
         magic=AUX_PACKET_MAGIC,
@@ -43,13 +48,14 @@ def pack(data, crypto):
     return messages
 
 
-def unpack(data, crypto):
+def unpack(data, crypto, client_data=False):
     """
     Split and decrypt auxiliary data blob
 
     Args:
         data (bytes): Data blob
         crypto (:class:`AuxiliaryStreamCrypto`): Crypto context
+        client_data (bool): Whether to decrypt with 'client IV'
 
     Returns:
         bytes: Decrypted message
@@ -62,7 +68,10 @@ def unpack(data, crypto):
     if not crypto.verify(header + payload, hmac):
         raise AuxiliaryPackerException('Hash verification failed')
 
-    plaintext = crypto.decrypt(payload)
+    if not client_data:
+        plaintext = crypto.decrypt(payload)
+    else:
+        plaintext = crypto.decrypt_client(payload)
 
     # Cut off padding, before returning
     return plaintext[:parsed.payload_size]
