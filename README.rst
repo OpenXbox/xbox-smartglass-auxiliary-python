@@ -13,6 +13,10 @@ Xbox-Smartglass-Auxiliary
 .. image:: https://travis-ci.com/OpenXbox/xbox-smartglass-auxiliary-python.svg?branch=master
     :target: https://travis-ci.com/OpenXbox/xbox-smartglass-auxiliary-python
 
+.. image:: https://img.shields.io/badge/discord-OpenXbox-blue.svg
+    :target: https://discord.gg/uzbC73m
+    :alt: Discord chat channel
+
 This library provides the title channel / auxiliary stream extension of the SmartGlass protocol.
 Only title that is making use of it currently is Fallout 4.
 
