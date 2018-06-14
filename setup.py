@@ -28,7 +28,7 @@ setup(
         "Programming Language :: Python :: 3.6"
     ],
     install_requires=[
-        'xbox-smartglass-core'
+        'xbox-smartglass-core>=1.0.8'
     ],
     tests_require=[
         'pytest',
