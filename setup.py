@@ -26,10 +26,11 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7"
     ],
     install_requires=[
-        'xbox-smartglass-core>=1.0.8'
+        'xbox-smartglass-core>=1.0.12'
     ],
     tests_require=[
         'pytest',
