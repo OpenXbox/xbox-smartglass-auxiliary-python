@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name="xbox-smartglass-auxiliary",
-    version="0.9.1",
+    version="0.9.2",
     author="OpenXbox",
     description="Title channel / AuxiliaryStream extension of the Xbox One SmartGlass protocol.",
     long_description=open('README.rst').read() + '\n\n' + open('HISTORY.rst').read(),
