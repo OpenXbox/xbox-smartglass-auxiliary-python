@@ -1,77 +1,20 @@
-=========================
-Xbox-Smartglass-Auxiliary
-=========================
+======================================
+[DEPRECATED] Xbox-Smartglass-Auxiliary
+======================================
 
-.. image:: https://pypip.in/version/xbox-smartglass-auxiliary/badge.svg
-    :target: https://pypi.python.org/pypi/xbox-smartglass-auxiliary/
-    :alt: Latest Version
-
-.. image:: https://readthedocs.org/projects/xbox-smartglass-auxiliary-python/badge/?version=latest
-    :target: http://xbox-smartglass-auxiliary-python.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-
-.. image:: https://travis-ci.com/OpenXbox/xbox-smartglass-auxiliary-python.svg?branch=master
-    :target: https://travis-ci.com/OpenXbox/xbox-smartglass-auxiliary-python
-
-.. image:: https://img.shields.io/badge/discord-OpenXbox-blue.svg
-    :target: https://discord.gg/E8kkJhQ
-    :alt: Discord chat channel
-
-This library provides the title channel / auxiliary stream extension of the SmartGlass protocol.
-Only title that is making use of it currently is Fallout 4.
-
-For in-depth information, check out the documentation: (https://openxbox.github.io)
-
-Dependencies
+META PACKAGE
 ------------
-* Python >= 3.5
-* xbox-smartglass-core
+This package is deprecated and won't receive any updates.
 
-Install
--------
+Its codebase has moved into the core library.
 
-Via pip:
-::
+You can still install this meta package - it will simply install the core library
+as its only dependency then.
 
-    pip install xbox-smartglass-auxiliary
+Core library:
 
+Github_
+PyPi_
 
-How to use
-----------
-
-Authenticate first (Authentication provided by xbox-webapi-python):
-::
-
-    xbox-authenticate
-
-    # alternatively: ncurses terminal ui
-    xbox-auth-tui
-
-Now you can use the relay script (Fallout 4 PipBoy)
-::
-
-    xbox-fo4-relay
-
-
-Credits
--------
-Kudos to joelday_ for figuring out the AuxiliaryStream / TitleChannel communication first!
-You can find the original implementation here: DarkId.SmartGlass_.
-
-Known issues
-------------
-* Find, report and/or fix them ;)
-
-Contribute
-----------
-* Report bugs/suggest features
-* Add/update docs
-
-Credits
--------
-This package uses parts of Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-.. _joelday: https://github.com/joelday
-.. _DarkId.SmartGlass: https://github.com/joelday/DarkId.SmartGlass
+.. _GitHub: https://github.com/OpenXbox/xbox-smartglass-core-python
+.. _PyPi: https://pypi.org/project/xbox-smartglass-core
